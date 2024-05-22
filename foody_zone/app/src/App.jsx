@@ -10,6 +10,7 @@ const App = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [filterData, setFilterData] = useState(null);
   const [foodType, setFoodType] = useState("all");
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const App = () => {
         const json = await respones.json();
 
         setData(json);
+        setFilterData(json);
         setLoading(false);
       } catch (error) {
         setError("Unable to fetch the data");
@@ -39,6 +41,16 @@ const App = () => {
     setFoodType(typeValue);
   };
 
+  const searchFilter = (e) => {
+    const searchData = e.target.value;
+
+    const filter = filterData?.filter((item) =>
+      item.name.toLowerCase().includes(searchData.toLowerCase())
+    );
+
+    setData(filter);
+  };
+
   return (
     <>
       <MainContainer>
@@ -47,7 +59,11 @@ const App = () => {
             <img src={logo} alt="logo..." />
           </div>
           <div className="search_input">
-            <input type="text" placeholder="Search Food..." />
+            <input
+              type="text"
+              placeholder="Search Food..."
+              onChange={searchFilter}
+            />
           </div>
         </TopContainer>
         <FilterItems>
@@ -94,6 +110,10 @@ const TopContainer = styled.div`
       border-radius: 5px;
       width: 250px;
     }
+  }
+
+  @media (0 < width < 600px) {
+    flex-direction: column;
   }
 `;
 

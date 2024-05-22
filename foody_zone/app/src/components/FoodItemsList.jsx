@@ -7,28 +7,28 @@ import { MainContainer } from "../App";
 const FoodItemsList = ({ data, foodType }) => {
   console.log("coming data", data);
 
-  console.log("food type from food cards ", foodType);
-
   return (
     <FoodItemsContainer>
       <MainContainer>
         <FoodCards>
           {data?.map((food) => {
-            if (food.type === "dinner") {
-              <FoodCardInfo key={food.name}>
-                <div className="food_img">
-                  <img src={BASE_URL + food.image} alt="images..." />
-                </div>
-                <div className="foodCard_info">
-                  <div className="food_info">
-                    <h2>{food.name}</h2>
-                    <p>{food.text}</p>
+            if (food.type === foodType || foodType === "all") {
+              return (
+                <FoodCardInfo key={food.name}>
+                  <div className="food_img">
+                    <img src={BASE_URL + food.image} alt="images..." />
                   </div>
-                  <div className="food_price">
-                    <button>${food.price.toFixed(2)}</button>
+                  <div className="foodCard_info">
+                    <div className="food_info">
+                      <h2>{food.name}</h2>
+                      <p>{food.text}</p>
+                    </div>
+                    <div className="food_price">
+                      <button>${food.price.toFixed(2)}</button>
+                    </div>
                   </div>
-                </div>
-              </FoodCardInfo>;
+                </FoodCardInfo>
+              );
             }
           })}
         </FoodCards>

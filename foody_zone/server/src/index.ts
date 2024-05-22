@@ -59,6 +59,9 @@ app.get("/", (req, res) => {
   res.json(foodData);
 });
 
+// const ipAddress = '192.168.192.114'; // Listen on all IP addresses
+// const port = 9000;
+
 app.listen(9000, () => {
-  console.log("Server is running on port 9000");
+  console.log(`Server is running on http://localhost:9000`);
 });
